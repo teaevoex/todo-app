@@ -1,0 +1,38 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test:unit": "vitest run tests/unit",
+    "test:unit:watch": "vitest tests/unit",
+    "test:e2e": "npx playwright test",
+    "test:e2e:chromium": "npx playwright test --project=chromium",
+    "test:e2e:firefox": "npx playwright test --project=firefox"
+  },
+  "dependencies": {
+    "@simplewebauthn/browser": "^11.0.0",
+    "@simplewebauthn/server": "^11.0.0",
+    "better-sqlite3": "^12.8.0",
+    "date-fns": "^3.6.0",
+    "date-fns-tz": "^3.2.0",
+    "jose": "^5.9.0",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.3"
+  }
+}
