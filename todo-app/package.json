@@ -1,0 +1,32 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test:e2e": "playwright test",
+    "seed:holidays": "tsx scripts/seed-holidays.ts"
+  },
+  "dependencies": {
+    "@simplewebauthn/browser": "^13.1.0",
+    "@simplewebauthn/server": "^13.1.0",
+    "better-sqlite3": "^11.8.1",
+    "jose": "^6.0.12",
+    "next": "^16.0.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/node": "^22.15.29",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "eslint": "^9.25.1",
+    "eslint-config-next": "^16.0.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.8.3"
+  }
+}
