@@ -177,6 +177,12 @@ function getDb(): Database.Database {
     // Column already exists
   }
 
+  try {
+    _db.exec(`ALTER TABLE templates ADD COLUMN tag_ids_json TEXT NOT NULL DEFAULT '[]'`)
+  } catch {
+    // Column already exists
+  }
+
   return _db
 }
 
