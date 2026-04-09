@@ -1,0 +1,2 @@
+[build]
+system-packages = ["python3"]
