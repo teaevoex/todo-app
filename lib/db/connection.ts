@@ -1,7 +1,14 @@
 import Database from 'better-sqlite3'
 import path from 'path'
+import fs from 'fs'
 
-const DB_PATH = path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH || process.cwd(), 'todos.db')
+function getDbPath(): string {
+  const dir = process.env.RAILWAY_VOLUME_MOUNT_PATH || process.cwd()
+  if (process.env.RAILWAY_VOLUME_MOUNT_PATH && !fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true })
+  }
+  return path.join(dir, 'todos.db')
+}
 
 let _db: Database.Database | null = null
 
@@ -10,7 +17,7 @@ function getDb(): Database.Database {
     return _db
   }
 
-  _db = new Database(DB_PATH)
+  _db = new Database(getDbPath())
   _db.pragma('journal_mode = WAL')
   _db.pragma('foreign_keys = ON')
 
@@ -173,4 +180,16 @@ function getDb(): Database.Database {
   return _db
 }
 
-export const db = getDb()
+// Lazy proxy: defers DB initialization to first access at runtime.
+// This prevents SQLite from opening during `next build` when the
+// Railway volume is not yet mounted.
+export const db: Database.Database = new Proxy({} as Database.Database, {
+  get(_target, prop, receiver) {
+    const instance = getDb()
+    const value = Reflect.get(instance, prop, receiver)
+    if (typeof value === 'function') {
+      return value.bind(instance)
+    }
+    return value
+  },
+})
