@@ -1,0 +1,18 @@
+export const typographyTokens = {
+  'font-family-sans':    'Inter, system-ui, -apple-system, sans-serif',
+  'font-family-mono':    'JetBrains Mono, Menlo, monospace',
+  'font-size-xs':        '0.75rem',
+  'font-size-sm':        '0.875rem',
+  'font-size-base':      '1rem',
+  'font-size-lg':        '1.125rem',
+  'font-size-xl':        '1.25rem',
+  'font-size-2xl':       '1.5rem',
+  'font-size-3xl':       '1.875rem',
+  'font-weight-normal':  '400',
+  'font-weight-medium':  '500',
+  'font-weight-semibold': '600',
+  'font-weight-bold':    '700',
+  'line-height-tight':   '1.25',
+  'line-height-normal':  '1.5',
+  'line-height-relaxed': '1.75',
+} as const

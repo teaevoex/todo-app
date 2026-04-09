@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx next:*)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const {isoBase64URL} = require\\('@simplewebauthn/server/helpers'\\); console.log\\(Object.keys\\(isoBase64URL\\)\\)\")",
+      "Bash(npx tsc:*)",
+      "Bash(echo \"Exit: $?\")",
+      "Bash(npm rebuild:*)",
+      "Bash(nvm list:*)",
+      "Bash(export PATH=\"/c/nvm4w/nodejs:$PATH\")",
+      "Bash(npx tsx:*)",
+      "Bash(npx playwright:*)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(npm install:*)",
+      "Bash(npx vitest:*)",
+      "Bash(npx eslint:*)"
+    ]
+  }
+}
