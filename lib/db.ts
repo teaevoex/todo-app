@@ -2,18 +2,22 @@ import Database from 'better-sqlite3'
 import path from 'path'
 import fs from 'fs'
 
-// --- Database Connection ---
+// --- Database Connection (lazy initialization) ---
 
 const dbPath = path.join(process.cwd(), 'todos.db')
 
-function openDatabase(): Database.Database {
+let _db: Database.Database | null = null
+
+function getDb(): Database.Database {
+  if (_db) return _db
+
   try {
     const instance = new Database(dbPath)
     // Test that the database is not corrupt
     instance.pragma('integrity_check')
     instance.pragma('journal_mode = WAL')
     instance.pragma('foreign_keys = ON')
-    return instance
+    _db = instance
   } catch (err) {
     // If database is corrupt, delete it and create a fresh one
     console.warn('Database corrupt or unreadable, recreating:', err)
@@ -23,15 +27,22 @@ function openDatabase(): Database.Database {
     const instance = new Database(dbPath)
     instance.pragma('journal_mode = WAL')
     instance.pragma('foreign_keys = ON')
-    return instance
+    _db = instance
   }
+
+  initSchema(_db!)
+  return _db!
 }
 
-const db = openDatabase()
+// Use a Proxy so all existing `db.xxx()` calls work without changes
+const db: Database.Database = new Proxy({} as Database.Database, {
+  get(_target, prop) {
+    return (getDb() as unknown as Record<string | symbol, unknown>)[prop]
+  },
+})
 
-// --- Schema ---
-
-db.exec(`
+function initSchema(instance: Database.Database): void {
+  instance.exec(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
@@ -128,10 +139,11 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_holidays_date ON holidays(date);
 `)
 
-// Seed default user for development (will be replaced by PRP 11 WebAuthn)
-const defaultUser = db.prepare('SELECT id FROM users WHERE username = ?').get('default')
-if (!defaultUser) {
-  db.prepare('INSERT INTO users (username) VALUES (?)').run('default')
+  // Seed default user for development
+  const defaultUser = instance.prepare('SELECT id FROM users WHERE username = ?').get('default')
+  if (!defaultUser) {
+    instance.prepare('INSERT INTO users (username) VALUES (?)').run('default')
+  }
 }
 
 // --- Type Definitions ---
