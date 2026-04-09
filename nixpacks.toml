@@ -1,2 +1,2 @@
-[build]
-system-packages = ["python3"]
+[phases.setup]
+nixPkgs = ["python3", "gcc", "gnumake", "pkg-config"]
