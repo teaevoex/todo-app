@@ -1,13 +1,33 @@
 import Database from 'better-sqlite3'
 import path from 'path'
+import fs from 'fs'
 
 // --- Database Connection ---
 
 const dbPath = path.join(process.cwd(), 'todos.db')
-const db = new Database(dbPath)
 
-db.pragma('journal_mode = WAL')
-db.pragma('foreign_keys = ON')
+function openDatabase(): Database.Database {
+  try {
+    const instance = new Database(dbPath)
+    // Test that the database is not corrupt
+    instance.pragma('integrity_check')
+    instance.pragma('journal_mode = WAL')
+    instance.pragma('foreign_keys = ON')
+    return instance
+  } catch (err) {
+    // If database is corrupt, delete it and create a fresh one
+    console.warn('Database corrupt or unreadable, recreating:', err)
+    try { fs.unlinkSync(dbPath) } catch { /* file may not exist */ }
+    try { fs.unlinkSync(dbPath + '-wal') } catch { /* ignore */ }
+    try { fs.unlinkSync(dbPath + '-shm') } catch { /* ignore */ }
+    const instance = new Database(dbPath)
+    instance.pragma('journal_mode = WAL')
+    instance.pragma('foreign_keys = ON')
+    return instance
+  }
+}
+
+const db = openDatabase()
 
 // --- Schema ---
 
