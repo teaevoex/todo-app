@@ -633,33 +633,45 @@ export default function HomePage() {
   }
 
   return (
-    <main className="max-w-2xl mx-auto px-4 py-8">
+    <main className="max-w-3xl mx-auto px-4 py-8 animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold dark:text-white">My Todos</h1>
-        <div className="flex items-center gap-2">
-          {sessionUsername && (
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              {sessionUsername}
-            </span>
-          )}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-md shadow-indigo-500/20">
+              <span className="text-lg">✏️</span>
+            </div>
+            <div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent dark:from-indigo-400 dark:to-purple-400">
+                My Todos
+              </h1>
+              {sessionUsername && (
+                <p className="text-xs text-gray-400 dark:text-gray-500">
+                  Welcome, {sessionUsername}
+                </p>
+              )}
+            </div>
+          </div>
           <button
             onClick={handleLogout}
-            className="text-sm px-3 py-1.5 rounded-lg border
-                       border-gray-300 text-gray-600 hover:bg-gray-100
-                       dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700
-                       transition-colors"
+            className="text-sm px-3 py-1.5 rounded-lg
+                       text-gray-500 hover:text-gray-700 hover:bg-gray-100
+                       dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-800
+                       transition-all"
           >
             Logout
           </button>
+        </div>
+        {/* Action bar */}
+        <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={handleExport}
-            className="text-sm px-3 py-1.5 rounded-lg border
-                       border-green-300 text-green-600 hover:bg-green-50
-                       dark:border-green-700 dark:text-green-400 dark:hover:bg-green-900/20
-                       transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg
+                       glass-card text-gray-600 dark:text-gray-300
+                       hover:shadow-md hover:-translate-y-0.5
+                       active:translate-y-0 transition-all"
           >
-            Export
+            <span>📤</span> Export
           </button>
           <input
             type="file"
@@ -670,45 +682,46 @@ export default function HomePage() {
           />
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="text-sm px-3 py-1.5 rounded-lg border
-                       border-orange-300 text-orange-600 hover:bg-orange-50
-                       dark:border-orange-700 dark:text-orange-400 dark:hover:bg-orange-900/20
-                       transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg
+                       glass-card text-gray-600 dark:text-gray-300
+                       hover:shadow-md hover:-translate-y-0.5
+                       active:translate-y-0 transition-all"
           >
-            Import
+            <span>📥</span> Import
           </button>
           <button
             onClick={() => { setShowTemplateModal(true); resetTemplateForm(); setEditingTemplate(null) }}
-            className="text-sm px-3 py-1.5 rounded-lg border
-                       border-purple-300 text-purple-600 hover:bg-purple-50
-                       dark:border-purple-700 dark:text-purple-400 dark:hover:bg-purple-900/20
-                       transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg
+                       glass-card text-gray-600 dark:text-gray-300
+                       hover:shadow-md hover:-translate-y-0.5
+                       active:translate-y-0 transition-all"
           >
-            📋 Templates
+            <span>📋</span> Templates
           </button>
           <a
             href="/calendar"
-            className="text-sm px-3 py-1.5 rounded-lg border
-                       border-indigo-300 text-indigo-600 hover:bg-indigo-50
-                       dark:border-indigo-700 dark:text-indigo-400 dark:hover:bg-indigo-900/20
-                       transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg
+                       glass-card text-gray-600 dark:text-gray-300
+                       hover:shadow-md hover:-translate-y-0.5
+                       active:translate-y-0 transition-all"
           >
-            📅 Calendar
+            <span>📅</span> Calendar
           </a>
           {typeof Notification !== 'undefined' && (
           isEnabled ? (
-            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full
-                             bg-green-100 text-green-800 text-sm font-medium
-                             dark:bg-green-900/30 dark:text-green-300">
+            <span className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full
+                             bg-emerald-50 text-emerald-600 font-medium border border-emerald-200
+                             dark:bg-emerald-900/20 dark:text-emerald-400 dark:border-emerald-800">
               🔔 Notifications On
             </span>
           ) : (
             <button
               onClick={requestPermission}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full
-                         bg-orange-100 text-orange-800 text-sm font-medium
-                         hover:bg-orange-200 transition-colors cursor-pointer
-                         dark:bg-orange-900/30 dark:text-orange-300 dark:hover:bg-orange-900/50"
+              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full
+                         bg-amber-50 text-amber-600 font-medium border border-amber-200
+                         hover:bg-amber-100 cursor-pointer
+                         dark:bg-amber-900/20 dark:text-amber-400 dark:border-amber-800
+                         dark:hover:bg-amber-900/30 transition-all"
             >
               🔔 Enable Notifications
             </button>
@@ -719,19 +732,19 @@ export default function HomePage() {
 
       {/* Import Message */}
       {importMessage && (
-        <div className={`mb-4 p-3 rounded-lg text-sm ${
+        <div className={`mb-4 p-3 rounded-xl text-sm animate-slide-up ${
           importMessage.type === 'success'
-            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-            : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+            ? 'bg-emerald-50 text-emerald-600 border border-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-400 dark:border-emerald-800'
+            : 'bg-red-50 text-red-600 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800'
         }`}>
           {importMessage.text}
         </div>
       )}
 
       {/* Create Form */}
-      <form onSubmit={handleAddTodo} aria-label="Create new todo" className="mb-8 bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+      <form onSubmit={handleAddTodo} aria-label="Create new todo" className="mb-8 glass-card rounded-2xl shadow-lg shadow-gray-200/40 dark:shadow-none p-5">
         {createError && (
-          <div role="alert" className="mb-3 px-3 py-2 text-sm rounded-lg bg-red-50 text-red-700 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
+          <div role="alert" className="mb-3 px-3 py-2 text-sm rounded-xl bg-red-50 text-red-600 border border-red-100 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/50 animate-fade-in">
             {createError}
           </div>
         )}
@@ -742,23 +755,23 @@ export default function HomePage() {
             onChange={(e) => setNewTitle(e.target.value)}
             placeholder="What needs to be done?"
             aria-label="Todo title"
-            className="w-full border rounded-lg px-4 py-2.5 text-sm
-                       border-gray-300 dark:border-gray-600
-                       bg-white dark:bg-gray-700
+            className="w-full border rounded-xl px-4 py-3 text-sm font-medium
+                       border-gray-200 dark:border-gray-600
+                       bg-white/60 dark:bg-gray-800/60
                        text-gray-900 dark:text-white
                        placeholder-gray-400 dark:placeholder-gray-500
-                       focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
           />
           <div className="flex gap-2 items-center">
             <select
               value={newPriority}
               onChange={(e) => setNewPriority(e.target.value as Priority)}
               aria-label="Priority"
-              className="border rounded-lg px-3 py-2 text-sm
-                         border-gray-300 dark:border-gray-600
-                         bg-white dark:bg-gray-700
+              className="border rounded-xl px-3 py-2.5 text-sm
+                         border-gray-200 dark:border-gray-600
+                         bg-white/60 dark:bg-gray-800/60
                          text-gray-900 dark:text-white
-                         focus:outline-none focus:ring-2 focus:ring-blue-500"
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
             >
               <option value="high">High</option>
               <option value="medium">Medium</option>
@@ -769,19 +782,21 @@ export default function HomePage() {
               value={newDueDate}
               onChange={(e) => setNewDueDate(e.target.value)}
               aria-label="Due date"
-              className="flex-1 border rounded-lg px-3 py-2 text-sm
-                         border-gray-300 dark:border-gray-600
-                         bg-white dark:bg-gray-700
+              className="flex-1 border rounded-xl px-3 py-2.5 text-sm
+                         border-gray-200 dark:border-gray-600
+                         bg-white/60 dark:bg-gray-800/60
                          text-gray-900 dark:text-white
-                         focus:outline-none focus:ring-2 focus:ring-blue-500"
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
             />
             <button
               type="submit"
               disabled={!newTitle.trim()}
-              className="px-5 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium
-                         hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed
-                         dark:bg-blue-600 dark:hover:bg-blue-700
-                         transition-colors"
+              className="px-6 py-2.5 rounded-xl text-sm font-semibold
+                         bg-gradient-to-r from-indigo-600 to-purple-600 text-white
+                         shadow-md shadow-indigo-500/20
+                         hover:shadow-lg hover:shadow-indigo-500/30 hover:from-indigo-500 hover:to-purple-500
+                         disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none
+                         active:scale-[0.97] transition-all"
             >
               Add
             </button>
@@ -801,11 +816,11 @@ export default function HomePage() {
               <select
                 value={newRecurrencePattern}
                 onChange={(e) => setNewRecurrencePattern(e.target.value as RecurrencePattern)}
-                className="border rounded-lg px-3 py-2 text-sm
-                           border-gray-300 dark:border-gray-600
-                           bg-white dark:bg-gray-700
+                className="border rounded-xl px-3 py-2 text-sm
+                           border-gray-200 dark:border-gray-600
+                           bg-white/60 dark:bg-gray-800/60
                            text-gray-900 dark:text-white
-                           focus:outline-none focus:ring-2 focus:ring-purple-500"
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
               >
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
@@ -817,12 +832,12 @@ export default function HomePage() {
               value={newReminderMinutes ?? ''}
               onChange={(e) => setNewReminderMinutes(e.target.value ? Number(e.target.value) : null)}
               disabled={!newDueDate}
-              className="border rounded-lg px-3 py-2 text-sm
-                         border-gray-300 dark:border-gray-600
-                         bg-white dark:bg-gray-700
+              className="border rounded-xl px-3 py-2 text-sm
+                         border-gray-200 dark:border-gray-600
+                         bg-white/60 dark:bg-gray-800/60
                          text-gray-900 dark:text-white
-                         focus:outline-none focus:ring-2 focus:ring-amber-500
-                         disabled:opacity-50 disabled:cursor-not-allowed"
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400
+                         disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <option value="">🔔 None</option>
               <option value="15">15 minutes before</option>
@@ -863,7 +878,7 @@ export default function HomePage() {
       </form>
 
       {/* Filter Bar */}
-      <div className="mb-6 flex flex-col sm:flex-row gap-3" role="search" aria-label="Filter todos">
+      <div className="mb-6 flex flex-col sm:flex-row gap-2.5" role="search" aria-label="Filter todos">
         {/* Search input */}
         <div className="flex-1 relative">
           <input
@@ -872,12 +887,12 @@ export default function HomePage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search todos..."
             aria-label="Search todos"
-            className="w-full border rounded-lg px-3 py-2 pl-9 text-sm
-                       border-gray-300 dark:border-gray-600
-                       bg-white dark:bg-gray-700
+            className="w-full border rounded-xl px-3 py-2.5 pl-9 text-sm
+                       border-gray-200 dark:border-gray-600
+                       bg-white/80 dark:bg-gray-800/80
                        text-gray-900 dark:text-white
                        placeholder-gray-400 dark:placeholder-gray-500
-                       focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
           />
           <svg
             className="absolute left-3 top-2.5 w-4 h-4 text-gray-400"
@@ -908,11 +923,11 @@ export default function HomePage() {
           value={priorityFilter}
           onChange={(e) => setPriorityFilter(e.target.value)}
           aria-label="Filter by priority"
-          className="border rounded-lg px-3 py-2 text-sm
-                     border-gray-300 dark:border-gray-600
-                     bg-white dark:bg-gray-700
+          className="border rounded-xl px-3 py-2.5 text-sm
+                     border-gray-200 dark:border-gray-600
+                     bg-white/80 dark:bg-gray-800/80
                      text-gray-900 dark:text-white
-                     focus:outline-none focus:ring-2 focus:ring-blue-500"
+                     focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
         >
           <option value="">All Priorities</option>
           <option value="high">High Priority</option>
@@ -924,11 +939,11 @@ export default function HomePage() {
           value={tagFilter}
           onChange={(e) => setTagFilter(e.target.value)}
           aria-label="Filter by tag"
-          className="border rounded-lg px-3 py-2 text-sm
-                     border-gray-300 dark:border-gray-600
-                     bg-white dark:bg-gray-700
+          className="border rounded-xl px-3 py-2.5 text-sm
+                     border-gray-200 dark:border-gray-600
+                     bg-white/80 dark:bg-gray-800/80
                      text-gray-900 dark:text-white
-                     focus:outline-none focus:ring-2 focus:ring-blue-500"
+                     focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
         >
           <option value="">All Tags</option>
           {tags.map(tag => (
@@ -939,30 +954,30 @@ export default function HomePage() {
         </select>
         <button
           onClick={() => { setShowTagModal(true); setTagError('') }}
-          className="px-3 py-2 text-sm rounded-lg border
-                     border-gray-300 dark:border-gray-600
-                     text-gray-700 dark:text-gray-300
-                     hover:bg-gray-100 dark:hover:bg-gray-700
-                     transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-2.5 text-sm rounded-xl
+                     glass-card text-gray-600 dark:text-gray-300
+                     hover:shadow-md hover:-translate-y-0.5
+                     active:translate-y-0 transition-all"
         >
-          🏷️ Manage Tags
+          🏷️ Tags
         </button>
       </div>
 
       {/* No results empty state */}
       {filteredTodos.length === 0 && (searchQuery || priorityFilter || tagFilter) && (
-        <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-          <p className="text-lg">No todos match your filters</p>
-          <p className="text-sm mt-1">Try adjusting your search or filter criteria</p>
+        <div className="text-center py-12 animate-fade-in">
+          <div className="text-4xl mb-3">🔍</div>
+          <p className="text-base font-medium text-gray-500 dark:text-gray-400">No todos match your filters</p>
+          <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Try adjusting your search or filter criteria</p>
           <button
             onClick={() => {
               setSearchQuery('')
               setPriorityFilter('')
               setTagFilter('')
             }}
-            className="mt-3 text-sm text-blue-500 hover:text-blue-600
-                       dark:text-blue-400 dark:hover:text-blue-300
-                       underline transition-colors"
+            className="mt-4 text-sm font-medium text-indigo-500 hover:text-indigo-600
+                       dark:text-indigo-400 dark:hover:text-indigo-300
+                       transition-colors"
           >
             Clear all filters
           </button>
@@ -971,11 +986,17 @@ export default function HomePage() {
 
       {/* Overdue Section */}
       {overdue.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-semibold mb-3 text-red-600 dark:text-red-400">
-            ⚠️ Overdue ({overdue.length})
-          </h2>
-          <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-3 space-y-2">
+        <section className="mb-6 animate-slide-up">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-sm">⚠️</span>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-red-500 dark:text-red-400">
+              Overdue
+            </h2>
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400">
+              {overdue.length}
+            </span>
+          </div>
+          <div className="rounded-2xl bg-red-50/60 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 p-3 space-y-2">
             {overdue.map(todo => (
               <TodoItem
                 key={todo.id}
@@ -999,13 +1020,21 @@ export default function HomePage() {
 
       {/* Pending Section */}
       <section className="mb-6">
-        <h2 className="text-lg font-semibold mb-3 dark:text-white">
-          Pending ({pending.length})
-        </h2>
+        <div className="flex items-center gap-2 mb-3">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            Active
+          </h2>
+          <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400">
+            {pending.length}
+          </span>
+        </div>
         {pending.length === 0 ? (
-          <p className="text-gray-400 dark:text-gray-500 text-sm py-4 text-center">
-            No pending todos. Add one above!
-          </p>
+          <div className="text-center py-10">
+            <div className="text-3xl mb-2">✨</div>
+            <p className="text-sm text-gray-400 dark:text-gray-500">
+              No pending todos. Add one above!
+            </p>
+          </div>
         ) : (
           <div className="space-y-2">
             {pending.map(todo => (
@@ -1032,10 +1061,15 @@ export default function HomePage() {
       {/* Completed Section */}
       {completed.length > 0 && (
         <section className="mb-6">
-          <h2 className="text-lg font-semibold mb-3 text-gray-500 dark:text-gray-400">
-            Completed ({completed.length})
-          </h2>
-          <div className="space-y-2 opacity-70">
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+              Completed
+            </h2>
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
+              {completed.length}
+            </span>
+          </div>
+          <div className="space-y-2 opacity-60">
             {completed.map(todo => (
               <TodoItem
                 key={todo.id}
@@ -1060,14 +1094,14 @@ export default function HomePage() {
       {/* Edit Modal */}
       {editingTodo && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in"
           onClick={() => setEditingTodo(null)}
         >
           <div
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md mx-4"
+            className="glass-card rounded-2xl shadow-2xl p-6 w-full max-w-md mx-4 animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-lg font-semibold mb-4 dark:text-white">Edit Todo</h3>
+            <h3 className="text-lg font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Edit Todo</h3>
 
             {editError && (
               <div className="mb-4 px-3 py-2 text-sm rounded-lg bg-red-50 text-red-700 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
@@ -1084,11 +1118,11 @@ export default function HomePage() {
                   type="text"
                   value={editTitle}
                   onChange={(e) => setEditTitle(e.target.value)}
-                  className="w-full border rounded-lg px-3 py-2 text-sm
-                             border-gray-300 dark:border-gray-600
-                             bg-white dark:bg-gray-700
+                  className="w-full rounded-xl px-3 py-2 text-sm
+                             bg-white/50 dark:bg-gray-700/50
+                             border border-gray-200 dark:border-gray-600
                              text-gray-900 dark:text-white
-                             focus:outline-none focus:ring-2 focus:ring-blue-500"
+                             focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                 />
               </div>
 
@@ -1099,11 +1133,11 @@ export default function HomePage() {
                 <select
                   value={editPriority}
                   onChange={(e) => setEditPriority(e.target.value as Priority)}
-                  className="w-full border rounded-lg px-3 py-2 text-sm
-                             border-gray-300 dark:border-gray-600
-                             bg-white dark:bg-gray-700
+                  className="w-full rounded-xl px-3 py-2 text-sm
+                             bg-white/50 dark:bg-gray-700/50
+                             border border-gray-200 dark:border-gray-600
                              text-gray-900 dark:text-white
-                             focus:outline-none focus:ring-2 focus:ring-blue-500"
+                             focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                 >
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
@@ -1120,18 +1154,18 @@ export default function HomePage() {
                     type="datetime-local"
                     value={editDueDate}
                     onChange={(e) => setEditDueDate(e.target.value)}
-                    className="flex-1 border rounded-lg px-3 py-2 text-sm
-                               border-gray-300 dark:border-gray-600
-                               bg-white dark:bg-gray-700
+                    className="flex-1 rounded-xl px-3 py-2 text-sm
+                               bg-white/50 dark:bg-gray-700/50
+                               border border-gray-200 dark:border-gray-600
                                text-gray-900 dark:text-white
-                               focus:outline-none focus:ring-2 focus:ring-blue-500"
+                               focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                   />
                   {editDueDate && (
                     <button
                       type="button"
                       onClick={() => setEditDueDate('')}
-                      className="px-3 py-2 text-xs rounded-lg border
-                                 border-gray-300 dark:border-gray-600
+                      className="px-3 py-2 text-xs rounded-xl border
+                                 border-gray-200 dark:border-gray-600
                                  text-gray-600 dark:text-gray-400
                                  hover:bg-gray-100 dark:hover:bg-gray-700
                                  transition-colors"
@@ -1157,11 +1191,11 @@ export default function HomePage() {
                   <select
                     value={editRecurrencePattern}
                     onChange={(e) => setEditRecurrencePattern(e.target.value as RecurrencePattern)}
-                    className="mt-2 w-full border rounded-lg px-3 py-2 text-sm
-                               border-gray-300 dark:border-gray-600
-                               bg-white dark:bg-gray-700
+                    className="mt-2 w-full rounded-xl px-3 py-2 text-sm
+                               bg-white/50 dark:bg-gray-700/50
+                               border border-gray-200 dark:border-gray-600
                                text-gray-900 dark:text-white
-                               focus:outline-none focus:ring-2 focus:ring-purple-500"
+                               focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -1179,11 +1213,11 @@ export default function HomePage() {
                   value={editReminderMinutes ?? ''}
                   onChange={(e) => setEditReminderMinutes(e.target.value ? Number(e.target.value) : null)}
                   disabled={!editDueDate}
-                  className="w-full border rounded-lg px-3 py-2 text-sm
-                             border-gray-300 dark:border-gray-600
-                             bg-white dark:bg-gray-700
+                  className="w-full rounded-xl px-3 py-2 text-sm
+                             bg-white/50 dark:bg-gray-700/50
+                             border border-gray-200 dark:border-gray-600
                              text-gray-900 dark:text-white
-                             focus:outline-none focus:ring-2 focus:ring-amber-500
+                             focus:outline-none focus:ring-2 focus:ring-indigo-400/50
                              disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <option value="">🔔 None</option>
@@ -1230,8 +1264,8 @@ export default function HomePage() {
             <div className="flex gap-3 justify-end mt-6">
               <button
                 onClick={() => setEditingTodo(null)}
-                className="px-4 py-2 text-sm rounded-lg border
-                           border-gray-300 dark:border-gray-600
+                className="px-4 py-2 text-sm rounded-xl border
+                           border-gray-200 dark:border-gray-600
                            text-gray-700 dark:text-gray-300
                            hover:bg-gray-100 dark:hover:bg-gray-700
                            transition-colors"
@@ -1241,10 +1275,11 @@ export default function HomePage() {
               <button
                 onClick={handleUpdateTodo}
                 disabled={!editTitle.trim()}
-                className="px-4 py-2 text-sm rounded-lg bg-blue-500 text-white
-                           hover:bg-blue-600 disabled:opacity-50
-                           dark:bg-blue-600 dark:hover:bg-blue-700
-                           transition-colors"
+                className="px-4 py-2 text-sm rounded-xl font-medium text-white
+                           bg-gradient-to-r from-indigo-500 to-purple-500
+                           hover:from-indigo-600 hover:to-purple-600
+                           shadow-md shadow-indigo-500/25
+                           disabled:opacity-50 transition-all active:scale-[0.98]"
               >
                 Update
               </button>
@@ -1256,14 +1291,14 @@ export default function HomePage() {
       {/* Tag Management Modal */}
       {showTagModal && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in"
           onClick={() => setShowTagModal(false)}
         >
           <div
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-md mx-4"
+            className="glass-card rounded-2xl shadow-2xl p-6 w-full max-w-md mx-4 animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-lg font-semibold mb-4 dark:text-white">Manage Tags</h3>
+            <h3 className="text-lg font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Manage Tags</h3>
 
             {tagError && (
               <div className="mb-4 px-3 py-2 text-sm rounded-lg bg-red-50 text-red-700 border border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
@@ -1279,19 +1314,21 @@ export default function HomePage() {
                   value={newTagName}
                   onChange={(e) => setNewTagName(e.target.value)}
                   placeholder="New tag name..."
-                  className="flex-1 border rounded-lg px-3 py-2 text-sm
-                             border-gray-300 dark:border-gray-600
-                             bg-white dark:bg-gray-700
+                  className="flex-1 rounded-xl px-3 py-2 text-sm
+                             bg-white/50 dark:bg-gray-700/50
+                             border border-gray-200 dark:border-gray-600
                              text-gray-900 dark:text-white
                              placeholder-gray-400 dark:placeholder-gray-500
-                             focus:outline-none focus:ring-2 focus:ring-blue-500"
+                             focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                 />
                 <button
                   type="submit"
                   disabled={!newTagName.trim()}
-                  className="px-3 py-2 text-sm rounded-lg bg-blue-500 text-white font-medium
-                             hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed
-                             dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
+                  className="px-3 py-2 text-sm rounded-xl font-medium text-white
+                             bg-gradient-to-r from-indigo-500 to-purple-500
+                             hover:from-indigo-600 hover:to-purple-600
+                             shadow-md shadow-indigo-500/25
+                             disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   Add
                 </button>
@@ -1326,11 +1363,11 @@ export default function HomePage() {
                           type="text"
                           value={editTagName}
                           onChange={(e) => setEditTagName(e.target.value)}
-                          className="flex-1 border rounded-lg px-2 py-1 text-sm
-                                     border-gray-300 dark:border-gray-600
-                                     bg-white dark:bg-gray-700
+                          className="flex-1 rounded-xl px-2 py-1 text-sm
+                                     bg-white/50 dark:bg-gray-700/50
+                                     border border-gray-200 dark:border-gray-600
                                      text-gray-900 dark:text-white
-                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                     focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                         />
                         <div className="flex gap-1">
                           {TAG_COLORS.map(color => (
@@ -1347,8 +1384,8 @@ export default function HomePage() {
                         </div>
                         <button
                           onClick={handleUpdateTag}
-                          className="text-xs px-2 py-1 rounded bg-blue-500 text-white
-                                     hover:bg-blue-600 transition-colors"
+                          className="text-xs px-2 py-1 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 text-white
+                                     hover:from-indigo-600 hover:to-purple-600 transition-all"
                         >
                           Save
                         </button>
@@ -1405,8 +1442,8 @@ export default function HomePage() {
             <div className="flex justify-end mt-4">
               <button
                 onClick={() => setShowTagModal(false)}
-                className="px-4 py-2 text-sm rounded-lg border
-                           border-gray-300 dark:border-gray-600
+                className="px-4 py-2 text-sm rounded-xl border
+                           border-gray-200 dark:border-gray-600
                            text-gray-700 dark:text-gray-300
                            hover:bg-gray-100 dark:hover:bg-gray-700
                            transition-colors"
@@ -1421,14 +1458,14 @@ export default function HomePage() {
       {/* Template Modal */}
       {showTemplateModal && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in"
           onClick={() => setShowTemplateModal(false)}
         >
           <div
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-lg mx-4 max-h-[80vh] overflow-y-auto"
+            className="glass-card rounded-2xl shadow-2xl p-6 w-full max-w-lg mx-4 max-h-[80vh] overflow-y-auto animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-lg font-semibold mb-4 dark:text-white">
+            <h3 className="text-lg font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               {editingTemplate ? 'Edit Template' : 'Templates'}
             </h3>
 
@@ -1445,22 +1482,22 @@ export default function HomePage() {
                 value={templateTitle}
                 onChange={(e) => setTemplateTitle(e.target.value)}
                 placeholder="Template title"
-                className="w-full border rounded-lg px-3 py-2 text-sm
-                           border-gray-300 dark:border-gray-600
-                           bg-white dark:bg-gray-700
+                className="w-full rounded-xl px-3 py-2 text-sm
+                           bg-white/50 dark:bg-gray-700/50
+                           border border-gray-200 dark:border-gray-600
                            text-gray-900 dark:text-white
                            placeholder-gray-400 dark:placeholder-gray-500
-                           focus:outline-none focus:ring-2 focus:ring-purple-500"
+                           focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
               />
               <div className="flex gap-2">
                 <select
                   value={templatePriority}
                   onChange={(e) => setTemplatePriority(e.target.value as Priority)}
-                  className="border rounded-lg px-3 py-2 text-sm
-                             border-gray-300 dark:border-gray-600
-                             bg-white dark:bg-gray-700
+                  className="rounded-xl px-3 py-2 text-sm
+                             bg-white/50 dark:bg-gray-700/50
+                             border border-gray-200 dark:border-gray-600
                              text-gray-900 dark:text-white
-                             focus:outline-none focus:ring-2 focus:ring-purple-500"
+                             focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                 >
                   <option value="high">High</option>
                   <option value="medium">Medium</option>
@@ -1471,12 +1508,12 @@ export default function HomePage() {
                   value={templateCategory}
                   onChange={(e) => setTemplateCategory(e.target.value)}
                   placeholder="Category (optional)"
-                  className="flex-1 border rounded-lg px-3 py-2 text-sm
-                             border-gray-300 dark:border-gray-600
-                             bg-white dark:bg-gray-700
+                  className="flex-1 rounded-xl px-3 py-2 text-sm
+                             bg-white/50 dark:bg-gray-700/50
+                             border border-gray-200 dark:border-gray-600
                              text-gray-900 dark:text-white
                              placeholder-gray-400 dark:placeholder-gray-500
-                             focus:outline-none focus:ring-2 focus:ring-purple-500"
+                             focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                 />
                 <input
                   type="number"
@@ -1484,12 +1521,12 @@ export default function HomePage() {
                   onChange={(e) => setTemplateOffset(e.target.value)}
                   placeholder="Days"
                   min="0"
-                  className="w-20 border rounded-lg px-3 py-2 text-sm
-                             border-gray-300 dark:border-gray-600
-                             bg-white dark:bg-gray-700
+                  className="w-20 rounded-xl px-3 py-2 text-sm
+                             bg-white/50 dark:bg-gray-700/50
+                             border border-gray-200 dark:border-gray-600
                              text-gray-900 dark:text-white
                              placeholder-gray-400 dark:placeholder-gray-500
-                             focus:outline-none focus:ring-2 focus:ring-purple-500"
+                             focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                 />
               </div>
 
@@ -1507,20 +1544,22 @@ export default function HomePage() {
                       }
                     }}
                     placeholder="Add subtask..."
-                    className="flex-1 border rounded-lg px-3 py-1.5 text-sm
-                               border-gray-300 dark:border-gray-600
-                               bg-white dark:bg-gray-700
+                    className="flex-1 rounded-xl px-3 py-1.5 text-sm
+                               bg-white/50 dark:bg-gray-700/50
+                               border border-gray-200 dark:border-gray-600
                                text-gray-900 dark:text-white
                                placeholder-gray-400 dark:placeholder-gray-500
-                               focus:outline-none focus:ring-2 focus:ring-purple-500"
+                               focus:outline-none focus:ring-2 focus:ring-indigo-400/50"
                   />
                   <button
                     type="button"
                     onClick={handleAddTemplateSubtask}
                     disabled={!templateSubtaskInput.trim()}
-                    className="px-3 py-1.5 text-xs rounded-lg bg-purple-500 text-white font-medium
-                               hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed
-                               dark:bg-purple-600 dark:hover:bg-purple-700 transition-colors"
+                    className="px-3 py-1.5 text-xs rounded-xl font-medium text-white
+                               bg-gradient-to-r from-indigo-500 to-purple-500
+                               hover:from-indigo-600 hover:to-purple-600
+                               shadow-md shadow-indigo-500/25
+                               disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     Add
                   </button>
@@ -1549,9 +1588,11 @@ export default function HomePage() {
                 <button
                   type="submit"
                   disabled={!templateTitle.trim()}
-                  className="px-4 py-2 text-sm rounded-lg bg-purple-500 text-white font-medium
-                             hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed
-                             dark:bg-purple-600 dark:hover:bg-purple-700 transition-colors"
+                  className="px-4 py-2 text-sm rounded-xl font-medium text-white
+                             bg-gradient-to-r from-indigo-500 to-purple-500
+                             hover:from-indigo-600 hover:to-purple-600
+                             shadow-md shadow-indigo-500/25
+                             disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   {editingTemplate ? 'Update Template' : 'Save Template'}
                 </button>
@@ -1559,8 +1600,8 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() => { setEditingTemplate(null); resetTemplateForm() }}
-                    className="px-4 py-2 text-sm rounded-lg border
-                               border-gray-300 dark:border-gray-600
+                    className="px-4 py-2 text-sm rounded-xl border
+                               border-gray-200 dark:border-gray-600
                                text-gray-700 dark:text-gray-300
                                hover:bg-gray-100 dark:hover:bg-gray-700
                                transition-colors"
@@ -1606,7 +1647,7 @@ export default function HomePage() {
                             return (
                               <div
                                 key={template.id}
-                                className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg"
+                                className="flex items-center gap-3 p-3 bg-white/40 dark:bg-gray-700/30 border border-gray-200/60 dark:border-gray-600/60 rounded-xl hover:bg-white/60 dark:hover:bg-gray-700/50 transition-colors"
                               >
                                 <div className="flex-1 min-w-0">
                                   <div className="flex items-center gap-2 flex-wrap">
@@ -1629,18 +1670,18 @@ export default function HomePage() {
                                 <div className="flex gap-1 shrink-0">
                                   <button
                                     onClick={() => handleUseTemplate(template.id)}
-                                    className="text-xs px-2 py-1 rounded border
-                                               border-green-300 dark:border-green-700
-                                               text-green-600 dark:text-green-400
-                                               hover:bg-green-50 dark:hover:bg-green-900/20
-                                               transition-colors"
+                                    className="text-xs px-2.5 py-1 rounded-lg font-medium text-white
+                                               bg-gradient-to-r from-emerald-500 to-green-500
+                                               hover:from-emerald-600 hover:to-green-600
+                                               shadow-sm shadow-emerald-500/25
+                                               transition-all"
                                   >
                                     Use
                                   </button>
                                   <button
                                     onClick={() => startEditTemplate(template)}
-                                    className="text-xs px-2 py-1 rounded border
-                                               border-gray-300 dark:border-gray-600
+                                    className="text-xs px-2 py-1 rounded-lg border
+                                               border-gray-200 dark:border-gray-600
                                                text-gray-600 dark:text-gray-400
                                                hover:bg-gray-100 dark:hover:bg-gray-700
                                                transition-colors"
@@ -1649,8 +1690,8 @@ export default function HomePage() {
                                   </button>
                                   <button
                                     onClick={() => handleDeleteTemplate(template.id)}
-                                    className="text-xs px-2 py-1 rounded border
-                                               border-red-300 dark:border-red-700
+                                    className="text-xs px-2 py-1 rounded-lg border
+                                               border-red-200 dark:border-red-700
                                                text-red-600 dark:text-red-400
                                                hover:bg-red-50 dark:hover:bg-red-900/20
                                                transition-colors"
@@ -1672,8 +1713,8 @@ export default function HomePage() {
             <div className="flex justify-end mt-4">
               <button
                 onClick={() => setShowTemplateModal(false)}
-                className="px-4 py-2 text-sm rounded-lg border
-                           border-gray-300 dark:border-gray-600
+                className="px-4 py-2 text-sm rounded-xl border
+                           border-gray-200 dark:border-gray-600
                            text-gray-700 dark:text-gray-300
                            hover:bg-gray-100 dark:hover:bg-gray-700
                            transition-colors"

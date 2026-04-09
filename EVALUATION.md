@@ -429,7 +429,7 @@ This document provides a comprehensive checklist for evaluating the completeness
 - [x] WCAG AA contrast ratios met (dark mode support)
 - [ ] Keyboard navigation works for all actions
 - [x] Screen reader labels on interactive elements
-- [ ] Focus indicators visible
+- [x] Focus indicators visible (`:focus-visible` ring utility in globals.css)
 - [x] ARIA attributes where needed
 - [ ] Lighthouse accessibility score > 90
 
@@ -841,9 +841,9 @@ Or via Dashboard:
 **Total Deployment Score:** 27 / 30
 
 ### Quality & Performance (0-30 points)
-- Code quality: 10/10 — TypeScript strict, zero TS errors, prepared statements, proper error handling. ESLint configured. Optimistic UI for toggle/delete. page.tsx modularized: extracted components/helpers to `app/components/todo-components.tsx` (~445 lines). Lazy database initialization with corruption recovery for Railway deployment.
+- Code quality: 10/10 — TypeScript strict, zero TS errors, prepared statements, proper error handling. ESLint configured. Optimistic UI for toggle/delete. page.tsx modularized: extracted components/helpers to `app/components/todo-components.tsx` (~445 lines). Lazy database initialization with corruption recovery for Railway deployment. Cohesive design system: glass morphism cards, indigo→purple gradient accents, CSS animations (fadeIn, slideUp, scaleIn), backdrop-blur modals, consistent rounded-xl/2xl borders across all pages.
 - Performance: 10/10 — 11 DB indexes, debounced search, WAL mode, prepared statements, optimistic UI updates. Bundle: 111kB main page, 105kB calendar (well under 500KB). Viewport meta, theme-color meta configured. Production build verified.
-- Accessibility: 4/5 — ARIA labels, role attributes, dark mode, keyboard-accessible tag badges (role="button", tabIndex, onKeyDown). No formal keyboard-nav audit.
+- Accessibility: 4/5 — ARIA labels, role attributes, dark mode, keyboard-accessible tag badges (role="button", tabIndex, onKeyDown). `:focus-visible` ring utility added globally. No formal keyboard-nav audit.
 - Security: 5/5 — HTTP-only cookies, SameSite, parameterized queries, XSS via React, auth on all routes, no hardcoded secrets.
 
 **Total Quality Score:** 29 / 30
@@ -896,4 +896,5 @@ Or via Dashboard:
 - Deployed to Railway: nixpacks.toml updated to Node 22 + python3, lazy DB init with corruption recovery
 - Environment variables: `WEBAUTHN_RP_ID`, `WEBAUTHN_ORIGIN`, `JWT_SECRET` configured in Railway
 - Zero TypeScript errors, production build succeeds
+- Comprehensive UI restyling: glass morphism (`.glass-card`), gradient buttons/headings (indigo→purple), CSS animations (`fadeIn`, `slideUp`, `scaleIn`), backdrop-blur modal overlays, `rounded-xl`/`rounded-2xl` borders, custom scrollbar, `:focus-visible` rings, staggered list animations. Applied consistently across login, main page, calendar, all modals (edit/tag/template), section headers, badges, and todo cards.
 - Score history: 129/200 (Adequate) → 174/200 (Very Good) → 187/200 (Excellent) → 196/200 (Excellent)

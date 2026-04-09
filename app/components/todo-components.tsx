@@ -14,9 +14,9 @@ export interface EnrichedTodo extends Todo {
 export const PRIORITY_ORDER: Record<Priority, number> = { high: 0, medium: 1, low: 2 }
 
 export const PRIORITY_COLORS: Record<Priority, { bg: string; text: string; border: string }> = {
-  high: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-800 dark:text-red-300', border: 'border-red-200 dark:border-red-800' },
-  medium: { bg: 'bg-yellow-100 dark:bg-yellow-900/30', text: 'text-yellow-800 dark:text-yellow-300', border: 'border-yellow-200 dark:border-yellow-800' },
-  low: { bg: 'bg-blue-100 dark:bg-blue-900/30', text: 'text-blue-800 dark:text-blue-300', border: 'border-blue-200 dark:border-blue-800' },
+  high: { bg: 'bg-red-50 dark:bg-red-900/20', text: 'text-red-600 dark:text-red-400', border: 'border-red-200 dark:border-red-800' },
+  medium: { bg: 'bg-amber-50 dark:bg-amber-900/20', text: 'text-amber-600 dark:text-amber-400', border: 'border-amber-200 dark:border-amber-800' },
+  low: { bg: 'bg-sky-50 dark:bg-sky-900/20', text: 'text-sky-600 dark:text-sky-400', border: 'border-sky-200 dark:border-sky-800' },
 }
 
 export const REMINDER_LABELS: Record<number, string> = {
@@ -118,23 +118,23 @@ export function classifyTodos<T extends Todo>(todos: T[]) {
 export function PriorityBadge({ priority }: { priority: Priority }) {
   const colors = PRIORITY_COLORS[priority]
   return (
-    <span className={`text-xs px-2 py-0.5 rounded-full border ${colors.bg} ${colors.text} ${colors.border}`}>
-      {priority.charAt(0).toUpperCase() + priority.slice(1)}
+    <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md border ${colors.bg} ${colors.text} ${colors.border} uppercase tracking-wide`}>
+      {priority}
     </span>
   )
 }
 
 export function RecurrenceBadge({ pattern }: { pattern: RecurrencePattern }) {
   return (
-    <span className="text-xs px-2 py-0.5 rounded-full border bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-800">
-      🔄 {pattern.charAt(0).toUpperCase() + pattern.slice(1)}
+    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md border bg-violet-50 dark:bg-violet-900/20 text-violet-600 dark:text-violet-400 border-violet-200 dark:border-violet-800 uppercase tracking-wide">
+      🔄 {pattern}
     </span>
   )
 }
 
 export function ReminderBadge({ minutes }: { minutes: number }) {
   return (
-    <span className="text-xs px-2 py-0.5 rounded-full border bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800">
+    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md border bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-800 uppercase tracking-wide">
       🔔 {REMINDER_LABELS[minutes] ?? `${minutes}m`}
     </span>
   )
@@ -147,16 +147,16 @@ export function ProgressBar({ completed, total }: { completed: number; total: nu
   const isComplete = percentage === 100
 
   return (
-    <div className="mt-1">
+    <div className="mt-2">
       <div className="flex items-center gap-2">
-        <div className="flex-1 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+        <div className="flex-1 h-1.5 bg-gray-100 dark:bg-gray-700/50 rounded-full overflow-hidden">
           <div
-            className={`h-full rounded-full transition-all ${isComplete ? 'bg-green-500' : 'bg-blue-500'}`}
+            className={`h-full rounded-full transition-all duration-500 ease-out ${isComplete ? 'bg-gradient-to-r from-emerald-400 to-emerald-500' : 'bg-gradient-to-r from-indigo-400 to-purple-500'}`}
             style={{ width: `${percentage}%` }}
           />
         </div>
-        <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
-          {completed}/{total} subtasks
+        <span className="text-[11px] font-medium text-gray-400 dark:text-gray-500 whitespace-nowrap tabular-nums">
+          {completed}/{total}
         </span>
       </div>
     </div>
@@ -166,11 +166,11 @@ export function ProgressBar({ completed, total }: { completed: number; total: nu
 export function TagBadge({ tag, onClick }: { tag: Tag; onClick?: () => void }) {
   return (
     <span
-      className={`text-xs px-2 py-0.5 rounded-full border font-medium${onClick ? ' cursor-pointer hover:opacity-80' : ''}`}
+      className={`text-[11px] font-semibold px-2 py-0.5 rounded-md border${onClick ? ' cursor-pointer hover:opacity-75 hover:shadow-sm' : ''}`}
       style={{
-        backgroundColor: `${tag.color}20`,
+        backgroundColor: `${tag.color}15`,
         color: tag.color,
-        borderColor: `${tag.color}40`,
+        borderColor: `${tag.color}30`,
       }}
       onClick={onClick}
       role={onClick ? 'button' : undefined}
@@ -214,7 +214,7 @@ export function TodoItem({
   const dueInfo = todo.due_date ? formatDueDate(todo.due_date) : null
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-3">
+    <div className="glass-card rounded-xl p-4 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all stagger-item animate-fade-in">
       <div className="flex items-start gap-3">
         <input
           type="checkbox"
@@ -222,7 +222,7 @@ export function TodoItem({
           onChange={() => onToggle(todo)}
           aria-label={`Mark "${todo.title}" as ${todo.completed ? 'incomplete' : 'complete'}`}
           className="mt-1 h-4 w-4 rounded border-gray-300 dark:border-gray-600
-                     text-blue-500 focus:ring-blue-500 cursor-pointer"
+                     cursor-pointer"
         />
 
         <div className="flex-1 min-w-0">
@@ -254,34 +254,31 @@ export function TodoItem({
           )}
         </div>
 
-        <div className="flex gap-1 shrink-0">
+        <div className="flex gap-1.5 shrink-0">
           <button
             onClick={onToggleExpand}
-            className="text-xs px-2 py-1 rounded border
-                       border-gray-300 dark:border-gray-600
-                       text-gray-600 dark:text-gray-400
-                       hover:bg-gray-100 dark:hover:bg-gray-700
-                       transition-colors"
+            className="text-[11px] font-medium px-2.5 py-1.5 rounded-lg
+                       text-gray-500 dark:text-gray-400
+                       hover:bg-gray-100 dark:hover:bg-gray-700/50
+                       transition-all"
           >
             {isExpanded ? '▼ Subtasks' : '▶ Subtasks'}
           </button>
           <button
             onClick={() => onEdit(todo)}
-            className="text-xs px-2 py-1 rounded border
-                       border-gray-300 dark:border-gray-600
-                       text-gray-600 dark:text-gray-400
-                       hover:bg-gray-100 dark:hover:bg-gray-700
-                       transition-colors"
+            className="text-[11px] font-medium px-2.5 py-1.5 rounded-lg
+                       text-gray-500 dark:text-gray-400
+                       hover:bg-gray-100 dark:hover:bg-gray-700/50
+                       transition-all"
           >
             Edit
           </button>
           <button
             onClick={() => onDelete(todo.id)}
-            className="text-xs px-2 py-1 rounded border
-                       border-red-300 dark:border-red-700
-                       text-red-600 dark:text-red-400
-                       hover:bg-red-50 dark:hover:bg-red-900/20
-                       transition-colors"
+            className="text-[11px] font-medium px-2.5 py-1.5 rounded-lg
+                       text-red-400 dark:text-red-400
+                       hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600
+                       transition-all"
           >
             Delete
           </button>
@@ -289,15 +286,15 @@ export function TodoItem({
       </div>
 
       {isExpanded && (
-        <div className="mt-3 ml-7 space-y-2">
+        <div className="mt-3 ml-7 space-y-1.5 animate-fade-in">
           {todo.subtasks.map(subtask => (
-            <div key={subtask.id} className="flex items-center gap-2 group">
+            <div key={subtask.id} className="flex items-center gap-2 group py-1 px-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
               <input
                 type="checkbox"
                 checked={!!subtask.completed}
                 onChange={() => onToggleSubtask(subtask.id, !subtask.completed)}
                 className="h-3.5 w-3.5 rounded border-gray-300 dark:border-gray-600
-                           text-blue-500 focus:ring-blue-500 cursor-pointer"
+                           cursor-pointer"
               />
               <span
                 className={`text-sm flex-1 ${subtask.completed ? 'line-through text-gray-400 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'}`}
@@ -327,18 +324,19 @@ export function TodoItem({
               onChange={(e) => onSubtaskTitleChange(e.target.value)}
               placeholder="Add subtask..."
               className="flex-1 border rounded-lg px-3 py-1.5 text-sm
-                         border-gray-300 dark:border-gray-600
-                         bg-white dark:bg-gray-700
+                         border-gray-200 dark:border-gray-600
+                         bg-white/60 dark:bg-gray-800/60
                          text-gray-900 dark:text-white
                          placeholder-gray-400 dark:placeholder-gray-500
-                         focus:outline-none focus:ring-2 focus:ring-blue-500"
+                         focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400"
             />
             <button
               type="submit"
               disabled={!subtaskTitle.trim()}
-              className="px-3 py-1.5 text-xs rounded-lg bg-blue-500 text-white font-medium
-                         hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed
-                         dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
+              className="px-3 py-1.5 text-xs rounded-lg font-semibold
+                         bg-indigo-500 text-white
+                         hover:bg-indigo-600 disabled:opacity-40 disabled:cursor-not-allowed
+                         dark:bg-indigo-600 dark:hover:bg-indigo-500 transition-all"
             >
               Add
             </button>

@@ -91,72 +91,84 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-      <div className="w-full max-w-sm bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
-        <h1 className="text-2xl font-bold text-center mb-6 dark:text-white">
-          📝 Todo App
-        </h1>
-
-        {error && (
-          <div role="alert" className="mb-4 p-3 rounded-lg text-sm bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
-            {error}
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-sm animate-scale-in">
+        {/* Logo area */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/25 mb-4">
+            <span className="text-3xl">✏️</span>
           </div>
-        )}
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent dark:from-indigo-400 dark:to-purple-400">
+            Todo App
+          </h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Organize your life, effortlessly</p>
+        </div>
 
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Username
-            </label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter your username"
-              className="w-full border rounded-lg px-4 py-2.5 text-sm
-                         border-gray-300 dark:border-gray-600
-                         bg-white dark:bg-gray-700
-                         text-gray-900 dark:text-white
-                         placeholder-gray-400 dark:placeholder-gray-500
-                         focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                         outline-none"
-              disabled={loading}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && username.trim()) {
-                  handleLogin()
-                }
-              }}
-            />
+        <div className="glass-card rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-none p-6">
+          {error && (
+            <div role="alert" className="mb-4 p-3 rounded-xl text-sm bg-red-50 text-red-600 border border-red-100 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800/50 animate-fade-in">
+              {error}
+            </div>
+          )}
+
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
+                className="w-full border rounded-xl px-4 py-3 text-sm
+                           border-gray-200 dark:border-gray-600
+                           bg-white/50 dark:bg-gray-800/50
+                           text-gray-900 dark:text-white
+                           placeholder-gray-400 dark:placeholder-gray-500
+                           focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400
+                           outline-none"
+                disabled={loading}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && username.trim()) {
+                    handleLogin()
+                  }
+                }}
+              />
           </div>
 
           <div className="flex gap-3">
             <button
               onClick={handleLogin}
               disabled={loading || !username.trim()}
-              className="flex-1 px-4 py-2.5 rounded-lg text-sm font-medium
-                         bg-blue-600 text-white hover:bg-blue-700
-                         disabled:opacity-50 disabled:cursor-not-allowed
-                         transition-colors"
+              className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold
+                         bg-gradient-to-r from-indigo-600 to-purple-600
+                         text-white shadow-md shadow-indigo-500/25
+                         hover:shadow-lg hover:shadow-indigo-500/30 hover:from-indigo-500 hover:to-purple-500
+                         disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none
+                         active:scale-[0.98] transition-all"
             >
               {loading ? 'Authenticating...' : 'Login'}
             </button>
             <button
               onClick={handleRegister}
               disabled={loading || !username.trim()}
-              className="flex-1 px-4 py-2.5 rounded-lg text-sm font-medium
-                         border border-blue-300 text-blue-600 hover:bg-blue-50
-                         dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-900/20
+              className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold
+                         border-2 border-indigo-200 text-indigo-600
+                         hover:bg-indigo-50 hover:border-indigo-300
+                         dark:border-indigo-700 dark:text-indigo-400 dark:hover:bg-indigo-900/20
                          disabled:opacity-50 disabled:cursor-not-allowed
-                         transition-colors"
+                         active:scale-[0.98] transition-all"
             >
               {loading ? 'Processing...' : 'Register'}
             </button>
           </div>
 
-          <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-4">
-            Use your device&apos;s biometric authentication (fingerprint, Face ID, or Windows Hello) to sign in securely without a password.
+          <p className="text-xs text-center text-gray-400 dark:text-gray-500 mt-4 leading-relaxed">
+            Uses your device&apos;s biometric authentication to sign in securely — no passwords needed.
           </p>
+        </div>
         </div>
       </div>
     </div>

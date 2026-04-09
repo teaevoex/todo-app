@@ -39,12 +39,12 @@ function getDotColor(todo: EnrichedTodo, today: string): string {
 
 function PriorityBadge({ priority }: { priority: Priority }) {
   const colors: Record<Priority, string> = {
-    high: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
-    medium: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
-    low: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+    high: 'bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400',
+    medium: 'bg-amber-50 text-amber-600 dark:bg-yellow-900/30 dark:text-yellow-400',
+    low: 'bg-sky-50 text-sky-600 dark:bg-blue-900/30 dark:text-blue-400',
   }
   return (
-    <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium ${colors[priority]}`}>
+    <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md uppercase tracking-wide ${colors[priority]}`}>
       {priority}
     </span>
   )
@@ -215,7 +215,7 @@ function CalendarPage() {
       <nav className="mb-4 flex items-center justify-between">
         <a
           href="/"
-          className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm"
+          className="text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 text-sm font-medium transition-colors"
         >
           ← Back to Todos
         </a>
@@ -227,8 +227,8 @@ function CalendarPage() {
           )}
           <button
             onClick={handleLogout}
-            className="text-sm px-3 py-1.5 rounded-lg border
-                       border-gray-300 text-gray-600 hover:bg-gray-100
+            className="text-sm px-3 py-1.5 rounded-xl border
+                       border-gray-200 text-gray-600 hover:bg-gray-100
                        dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-700
                        transition-colors"
           >
@@ -239,29 +239,31 @@ function CalendarPage() {
 
       {/* Calendar Header */}
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-bold dark:text-white">
+        <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           {monthNames[month - 1]} {year}
         </h1>
         <div className="flex items-center gap-2">
           <button
             onClick={handlePrevMonth}
             aria-label="Previous month"
-            className="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100
+            className="px-3 py-1.5 rounded-xl border border-gray-200 hover:bg-gray-100
                        dark:border-gray-600 dark:hover:bg-gray-700 dark:text-white transition-colors"
           >
             ←
           </button>
           <button
             onClick={handleGoToToday}
-            className="px-3 py-1.5 rounded-lg border border-blue-300 text-blue-600 hover:bg-blue-50
-                       dark:border-blue-700 dark:text-blue-400 dark:hover:bg-blue-900/20 transition-colors text-sm"
+            className="px-3 py-1.5 rounded-xl text-sm font-medium text-white
+                       bg-gradient-to-r from-indigo-500 to-purple-500
+                       hover:from-indigo-600 hover:to-purple-600
+                       shadow-md shadow-indigo-500/25 transition-all"
           >
             Today
           </button>
           <button
             onClick={handleNextMonth}
             aria-label="Next month"
-            className="px-3 py-1.5 rounded-lg border border-gray-300 hover:bg-gray-100
+            className="px-3 py-1.5 rounded-xl border border-gray-200 hover:bg-gray-100
                        dark:border-gray-600 dark:hover:bg-gray-700 dark:text-white transition-colors"
           >
             →
@@ -270,7 +272,7 @@ function CalendarPage() {
       </div>
 
       {/* Calendar Grid */}
-      <div className="border rounded-lg overflow-hidden dark:border-gray-600">
+      <div className="rounded-2xl overflow-hidden border border-gray-200/60 dark:border-gray-600 shadow-sm">
         {/* Weekday Headers */}
         <div className="grid grid-cols-7 bg-gray-50 dark:bg-gray-800">
           {weekdays.map(day => (
@@ -390,11 +392,11 @@ function DateDetailPanel({
   })
 
   return (
-    <div className="mt-6 p-4 bg-white border rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-600">
-      <h2 className="text-lg font-semibold mb-3 dark:text-white">{displayDate}</h2>
+    <div className="mt-6 glass-card rounded-2xl p-4">
+      <h2 className="text-lg font-bold mb-3 dark:text-white">{displayDate}</h2>
 
       {holiday && (
-        <div className="mb-3 px-3 py-2 bg-red-50 dark:bg-red-900/20 rounded-lg text-sm text-red-700 dark:text-red-400">
+        <div className="mb-3 px-3 py-2 bg-red-50/60 dark:bg-red-900/20 rounded-xl text-sm text-red-700 dark:text-red-400 border border-red-100 dark:border-red-900/30">
           🎉 {holiday.name}
         </div>
       )}
@@ -406,7 +408,7 @@ function DateDetailPanel({
           {todos.map(todo => (
             <li
               key={todo.id}
-              className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50"
+              className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/40 dark:hover:bg-gray-700/50 transition-colors"
             >
               <input
                 type="checkbox"
