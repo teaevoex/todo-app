@@ -5,7 +5,7 @@ nixPkgs = ["nodejs_22", "python3"]
 cmds = ["npm ci"]
 
 [phases.build]
-cmds = ["npm run build"]
+cmds = ["npm run build", "rm -f todos.db todos.db-wal todos.db-shm"]
 
 [start]
 cmd = "npm start"
