@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+__tests__
+tests
+coverage
+*.db
+*.db-wal
+*.db-shm
