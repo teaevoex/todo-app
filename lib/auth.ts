@@ -5,10 +5,15 @@ import type { Session } from '@/lib/types'
 export type { Session }
 
 // --- Environment validation ---
+// Defer validation to runtime — JWT_SECRET is not available during `next build`.
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET ?? (() => { throw new Error('JWT_SECRET not configured') })()
-)
+function getJwtSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET
+  if (!secret) {
+    throw new Error('JWT_SECRET not configured')
+  }
+  return new TextEncoder().encode(secret)
+}
 
 const COOKIE_NAME = 'session'
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7 // 7 days in seconds
@@ -51,7 +56,7 @@ export async function createSession(userId: number, username: string): Promise<v
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('7d')
-    .sign(JWT_SECRET)
+    .sign(getJwtSecret())
 
   const cookieStore = await cookies()
   cookieStore.set(COOKIE_NAME, token, {
@@ -69,7 +74,7 @@ export async function getSession(): Promise<Session | null> {
   if (!token) return null
 
   try {
-    const { payload } = await jwtVerify(token, JWT_SECRET)
+    const { payload } = await jwtVerify(token, getJwtSecret())
     return {
       userId: Number(payload.sub),
       username: payload.username as string,

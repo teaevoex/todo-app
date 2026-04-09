@@ -2,10 +2,6 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { jwtVerify } from 'jose'
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET ?? ''
-)
-
 const PROTECTED_PATHS = ['/', '/calendar']
 
 function isProtectedPath(pathname: string): boolean {
@@ -27,7 +23,8 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
   if (token && process.env.JWT_SECRET) {
     try {
-      await jwtVerify(token, JWT_SECRET)
+      const secret = new TextEncoder().encode(process.env.JWT_SECRET)
+      await jwtVerify(token, secret)
       isAuthenticated = true
     } catch {
       // Invalid or expired token
