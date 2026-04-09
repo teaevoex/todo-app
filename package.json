@@ -36,6 +36,9 @@
     "react-dom": "latest",
     "tailwind-merge": "^2.0.0"
   },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
     "@playwright/test": "^1.45.0",
