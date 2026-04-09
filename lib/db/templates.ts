@@ -41,13 +41,6 @@ function rowToTemplate(row: TemplateRow): Template {
   }
 }
 
-// Ensure tag_ids_json column exists (idempotent migration)
-try {
-  db.exec(`ALTER TABLE templates ADD COLUMN tag_ids_json TEXT NOT NULL DEFAULT '[]'`)
-} catch {
-  // Column already exists
-}
-
 export const templateDB = {
   create(userId: number, dto: CreateTemplateDto): Template {
     const subtasksJson = dto.subtasks ? JSON.stringify(dto.subtasks) : '[]'
